@@ -26,7 +26,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Build filter
-      run: python ad-filter.py
+      run: python build.py
 
     - name: Update filter
       uses: actions-x/commit@v6
