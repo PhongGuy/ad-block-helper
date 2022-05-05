@@ -5,33 +5,32 @@ name: Update filter
 
 on:
   schedule:
-    - cron: "0 */1 * * *"
+    - cron: "0 */2 * * *"
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - uses: actions/setup-python@v3
-      with:
-        cache: 'pip'
-        python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+      - uses: actions/setup-python@v3
+        with:
+          cache: "pip"
+          python-version: "3.x" # Version range or exact version of a Python version to use, using SemVer's version range syntax
 
-    - name: Install requirements
-      run: pip install -r requirements.txt
+      - name: Install requirements
+        run: pip install -r requirements.txt
 
-    - name: Build filter
-      run: python build.py
+      - name: Build filter
+        run: python build.py
 
-    - name: Update filter
-      uses: actions-x/commit@v6
-      with:
-        email: 41898282+github-actions[bot]@users.noreply.github.com
-        name: github-actions[bot]
-        files: block-all.txt
-        message: Updated ad block filter
+      - name: Update filter
+        uses: actions-x/commit@v6
+        with:
+          email: 41898282+github-actions[bot]@users.noreply.github.com
+          name: github-actions[bot]
+          files: block-all.txt
+          message: Updated ad block filter
