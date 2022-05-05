@@ -2,52 +2,54 @@ import hashlib
 
 import requests
 
-dict = {}
-# uBlock
-dict["uBlock filters"] = "https://ublockorigin.github.io/uAssets/filters/filters.txt"
-dict["uBlock filters – Badware risks"] = "https://ublockorigin.github.io/uAssets/filters/badware.txt"
-dict["uBlock filters – Privacy"] = "https://ublockorigin.github.io/uAssets/filters/privacy.txt"
-dict["uBlock filters – Quick fixes"] = "https://ublockorigin.github.io/uAssets/filters/quick-fixes.txt"
-dict["uBlock filters – Resource abuse"] = "https://ublockorigin.github.io/uAssets/filters/resource-abuse.txt"
-dict["uBlock filters – Unbreak"] = "https://ublockorigin.github.io/uAssets/filters/unbreak.txt"
+dict = {
 
-# Ads
-dict["AdGuard Base"]  = "https://filters.adtidy.org/extension/ublock/filters/2_without_easylist.txt"
-dict["AdGuard Mobile Ads"] = "https://filters.adtidy.org/extension/ublock/filters/11.txt"
-dict["EasyList"] = "https://easylist.to/easylist/easylist.txt"
+    # uBlock
+    "uBlock filters": "https://ublockorigin.github.io/uAssets/filters/filters.txt",
+    "uBlock filters - Badware risks": "https://ublockorigin.github.io/uAssets/filters/badware.txt",
+    "uBlock filters - Privacy": "https://ublockorigin.github.io/uAssets/filters/privacy.txt",
+    "uBlock filters - Quick fixes": "https://ublockorigin.github.io/uAssets/filters/quick-fixes.txt",
+    "uBlock filters - Resource abuse": "https://ublockorigin.github.io/uAssets/filters/resource-abuse.txt",
+    "uBlock filters - Unbreak": "https://ublockorigin.github.io/uAssets/filters/unbreak.txt",
 
-# Privacy
-dict["AdGuard Tracking Protection"] = "https://filters.adtidy.org/extension/ublock/filters/3.txt"
-dict["AdGuard URL Tracking Protection"] = "https://filters.adtidy.org/extension/ublock/filters/17.txt"
-dict["Block Outsider Intrusion into LAN"] = "https://ublockorigin.github.io/uAssets/filters/lan-block.txt"
-dict["EasyPrivacy"] = "https://easylist.to/easylist/easyprivacy.txt"
+    # Ads
+    "AdGuard Base": "https://filters.adtidy.org/extension/ublock/filters/2_without_easylist.txt",
+    "AdGuard Mobile Ads": "https://filters.adtidy.org/extension/ublock/filters/11.txt",
+    "EasyList": "https://easylist.to/easylist/easylist.txt",
 
-# Malware domains
-dict["Online Malicious URL Blocklist"] = "https://curben.gitlab.io/malware-filter/urlhaus-filter-online.txt"
-dict["Phishing URL Blocklist"] = "https://curben.gitlab.io/malware-filter/phishing-filter.txt"
-dict["PUP Domains Blocklist"] = "https://curben.gitlab.io/malware-filter/pup-filter.txt"
+    # Privacy
+    "AdGuard Tracking Protection": "https://filters.adtidy.org/extension/ublock/filters/3.txt",
+    "AdGuard URL Tracking Protection": "https://filters.adtidy.org/extension/ublock/filters/17.txt",
+    "Block Outsider Intrusion into LAN": "https://ublockorigin.github.io/uAssets/filters/lan-block.txt",
+    "EasyPrivacy": "https://easylist.to/easylist/easyprivacy.txt",
 
-# Malware protection
-dict["Spam404"] = "https://raw.githubusercontent.com/Spam404/lists/master/adblock-list.txt"
+    # Malware domains
+    "Online Malicious URL Blocklist": "https://curben.gitlab.io/malware-filter/urlhaus-filter-online.txt",
+    "Phishing URL Blocklist": "https://curben.gitlab.io/malware-filter/phishing-filter.txt",
+    "PUP Domains Blocklist": "https://curben.gitlab.io/malware-filter/pup-filter.txt",
 
-# Anti-circumvention
-dict["ABP filters"] = "https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt"
+    # Malware protection
+    "Spam404": "https://raw.githubusercontent.com/Spam404/lists/master/adblock-list.txt",
 
-# Annoyances
-dict["AdGuard Annoyances"] = "https://filters.adtidy.org/extension/ublock/filters/14.txt"
-dict["AdGuard Social Media"] = "https://filters.adtidy.org/extension/ublock/filters/4.txt"
-dict["Anti-Facebook"] = "https://filters.adtidy.org/extension/ublock/filters/4.txt"
-dict["EasyList Cookie"] = "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt"
-dict["Fanboy’s Annoyance"] = "https://secure.fanboy.co.nz/fanboy-annoyance.txt"
-dict["Fanboy’s Social"] = "https://easylist.to/easylist/fanboy-social.txt"
-dict["uBlock filters – Annoyances"] = "https://ublockorigin.github.io/uAssets/filters/annoyances.txt"
+    # Anti-circumvention
+    "ABP filters": "https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt",
 
-# Multi-purpose
-dict["Dan Pollock’s hosts file"] ="https://someonewhocares.org/hosts/hosts"
-dict["Peter Lowe’s Ad and tracking server list"] ="https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext"
+    # Annoyances
+    "AdGuard Annoyances": "https://filters.adtidy.org/extension/ublock/filters/14.txt",
+    "AdGuard Social Media": "https://filters.adtidy.org/extension/ublock/filters/4.txt",
+    "Anti-Facebook": "https://filters.adtidy.org/extension/ublock/filters/4.txt",
+    "EasyList Cookie": "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",
+    "Fanboy’s Annoyance": "https://secure.fanboy.co.nz/fanboy-annoyance.txt",
+    "Fanboy’s Social": "https://easylist.to/easylist/fanboy-social.txt",
+    "uBlock filters – Annoyances": "https://ublockorigin.github.io/uAssets/filters/annoyances.txt",
 
-# Other Custom filters
-dict["Actually Legitimate URL Shortener Tool"] = "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt"
+    # Multi-purpose
+    "Dan Pollock’s hosts file": "https://someonewhocares.org/hosts/hosts",
+    "Peter Lowe’s Ad and tracking server list": "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=1&mimetype=plaintext",
+
+    # Other Custom filters
+    "Actually Legitimate URL Shortener Tool": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt",
+}
 
 tempFile = "all.temp"
 outFile = "block-all.txt"
