@@ -1,6 +1,5 @@
 import hashlib
 import json
-
 import requests
 
 # https://filterlists.com/
