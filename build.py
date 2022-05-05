@@ -49,6 +49,7 @@ dict = {
 
     # Other Custom filters
     "Actually Legitimate URL Shortener Tool": "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt",
+    "0131 Block List": "https://austinhuang.me/0131-block-list/list.txt"
 }
 
 tempFile = "all.temp"
