@@ -58,10 +58,11 @@ def main():
 
 
 def get_lists():
+    print("Downloading lists...")
     open(tempFile, "w").close()
 
     for list in dict:
-        print("Fetching " + list + "...")
+        print(f"Fetching {list}")
         f = requests.get(dict[list])
         with open(tempFile, "a", encoding="utf-8") as file:
             file.write(f.text.rstrip())
@@ -74,12 +75,14 @@ def remove_duplicates_and_comments():
     completed_lines = set()
 
     with open(outFile, "w", encoding="utf-8") as output_file:
-        for line in open(tempFile, "r", encoding="utf-8"):
-            if not line.startswith("!"):
-                hash_value = hashlib.md5(line.rstrip().encode('utf-8')).hexdigest()
+        for lines in open(tempFile, "r", encoding="utf-8"):
+            line = lines.rstrip()
+            if not line.startswith(("!", "# ", "#	", "  ", "	", " 	")):
+                hash_value = hashlib.md5(line.encode('utf-8')).hexdigest()
                 if hash_value not in completed_lines:
-                    output_file.write(line)
+                    output_file.write(line + "\n")
                     completed_lines.add(hash_value)
+
     print("Done!")
 
 if __name__ == "__main__":
