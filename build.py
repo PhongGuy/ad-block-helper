@@ -1,6 +1,4 @@
 import hashlib
-import json
-
 import requests
 
 tempFile = "abc.temp"
@@ -14,8 +12,9 @@ def main():
 def get_lists():
     print("Downloading lists...")
 
-    lists = requests.get("https://filterlists.com/api/directory/lists", headers={'accept': 'application/json'})
-    lists = json.loads(lists.text)
+    response = requests.get("https://filterlists.com/api/directory/lists")
+    response.raise_for_status()
+    lists = response.json()
 
     open(tempFile, "w").close()
 
