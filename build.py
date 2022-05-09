@@ -1,4 +1,6 @@
 import hashlib
+import json
+
 import requests
 
 tempFile = "abc.temp"
@@ -12,11 +14,11 @@ def main():
 def get_lists():
     print("Downloading lists...")
 
-    lists = requests.get("https://filterlists.com/api/directory/lists").json()
+    lists = requests.get("https://filterlists.com/api/directory/lists", headers={'accept': 'application/json'})
 
     open(tempFile, "w").close()
 
-    for list in lists:
+    for list in lists.json():
         if find_license(list["licenseId"]) and dont_add_name(list["name"]) and find_syntax(list["syntaxIds"]):
             print("Downloading list: " + list["name"])
             blob = requests.get(list['primaryViewUrl']).text.strip()
