@@ -1,4 +1,5 @@
 import hashlib
+
 import requests
 
 tempFile = "abc.temp"
@@ -22,7 +23,7 @@ def get_lists():
     open(tempFile, "w").close()
 
     for list in lists:
-        if find_license(list["licenseId"]) and dont_add_name(list["name"]) and find_syntax(list["syntaxIds"]):
+        if find_license(list["licenseId"]) and dont_add(list["id"]) and find_syntax(list["syntaxIds"]):
             print("Downloading list: " + list["name"])
             blob = requests.get(list['primaryViewUrl']).text.strip()
             with open(tempFile, "a", encoding="utf-8") as output_file:
@@ -74,11 +75,12 @@ def find_license(license):
         }:
         return True
 
-def dont_add_name(name):
+def dont_add(id):
     # https://filterlists.com/api/directory/lists
 
-    if name not in {
-        "Maltrail - Parking sites"
+    if id not in {
+        375, #All-in-One Customized Adblock List
+        2553 #Maltrail - Parking sites
         }:
         return True
 
