@@ -15,10 +15,11 @@ def get_lists():
     print("Downloading lists...")
 
     lists = requests.get("https://filterlists.com/api/directory/lists", headers={'accept': 'application/json'})
+    lists = json.loads(lists.text)
 
     open(tempFile, "w").close()
 
-    for list in lists.json():
+    for list in lists:
         if find_license(list["licenseId"]) and dont_add_name(list["name"]) and find_syntax(list["syntaxIds"]):
             print("Downloading list: " + list["name"])
             blob = requests.get(list['primaryViewUrl']).text.strip()
