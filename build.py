@@ -16,8 +16,24 @@ def get_lists():
     response = requests.get(
         "https://filterlists.com/api/directory/lists",
         headers={
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/83.0.4103.116 Safari/537.36 "
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Encoding": "gzip, deflate, br, zstd",
+            "Accept-Language": "en-US,en;q=0.5",
+            "Alt-Used": "filterlists.com",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "DNT": "1",
+            "Host": "filterlists.com",
+            "Pragma": "no-cache",
+            "Priority": "u=1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "cross-site",
+            "Sec-Fetch-User": "?1",
+            "Sec-GPC": "1",
+            "TE": "trailers",
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:127.0) Gecko/20100101 Firefox/127.0",
         }
     )
     response.raise_for_status()
