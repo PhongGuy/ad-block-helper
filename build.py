@@ -1,4 +1,5 @@
 import hashlib
+import json
 import requests
 
 tempFile = "a.temp"
@@ -14,22 +15,30 @@ def get_lists():
     print("Downloading lists...")
 
     response = requests.get(
-        "https://filterlists.com/api/directory/lists",
+        "https://api.filterlists.com/lists",
         headers={
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36",
         }
     )
-    response.raise_for_status()
-    lists = response.json()
+
+    if response.status_code == 200:
+        lists = response.json()
+        with open("local_cache.json", "w") as file:
+            file.write(response.text.strip())
+    else:
+        print("!- Using backup cache...")
+        with open("local_cache.json", "r") as file:
+            lists = json.loads(file.read())
+
 
     open(tempFile, "w").close()
 
     for ad_filter in lists:
-        if find_maintainer(ad_filter["maintainerIds"]) and find_syntax(ad_filter["syntaxIds"]) and block_tags(ad_filter['tagIds']) and find_license(ad_filter["licenseId"]) and find_language(ad_filter["languageIds"]):
-            print("Downloading list: " + ad_filter["name"])
-            blob = requests.get(ad_filter['primaryViewUrl']).text.strip()
-            with open(tempFile, "a", encoding="utf-8") as output_file:
-                output_file.write(blob + "\n")
+        with open(tempFile, "a", encoding="utf-8") as output_file:
+            if find_maintainer(ad_filter["maintainerIds"]) and find_syntax(ad_filter["syntaxIds"]) and block_tags(ad_filter['tagIds']) and find_license(ad_filter["licenseId"]) and find_language(ad_filter["languageIds"]):
+                blob = download_blob(ad_filter)
+                if blob:
+                    output_file.write(blob + "\n")
 
     print("Done!")
 
@@ -50,6 +59,14 @@ def remove_duplicates():
 
     print("Done!")
 
+
+def download_blob(ad_filter):
+    print("Downloading list: " + ad_filter["name"])
+    try:
+       return requests.get(ad_filter['primaryViewUrl']).text.strip()
+    except:
+        print("!- Failed to download")
+        return None
 
 def find_syntax(ad_filter):
     # https://filterlists.com/api/directory/syntaxes
