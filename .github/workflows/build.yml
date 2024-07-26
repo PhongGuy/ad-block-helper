@@ -4,10 +4,12 @@
 name: Update filter
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 5 * * *"
   push:
     branches: [main]
+
 
 jobs:
   build:
